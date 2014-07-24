@@ -3,6 +3,8 @@ var makeStack = function() {
   // but try not not reference your old code in writing the new style.
 };
 
-var stackMethods = {};
+var stackMethods = {
+    
+};
 
 
