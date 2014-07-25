@@ -17,8 +17,6 @@ var makeLinkedList = function(){
     tail.next = node;
     
     list.tail = node;
-    //node.next = list.tail;
-    //list.tail = node
     
     
   };
@@ -56,7 +54,6 @@ var makeLinkedList = function(){
   return list;
 };
 
-//there?
 var makeNode = function(value){
   var node = {};
 
@@ -67,4 +64,7 @@ var makeNode = function(value){
 };
 /*
  * Complexity: What is the time complexity of the above functions?
+  list.addToTail = O(1) , Constant time, amount of lookups does not change with amount of inputs
+  list.removeHead = O(1) , Constant time, always does a max of 3 lookups, never changes
+  list.contains, O(n), Linear time, adding one item only increases lookup by one
  */
