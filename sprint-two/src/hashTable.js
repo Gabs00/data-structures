@@ -26,7 +26,11 @@ HashTable.prototype.insert = function(k, v){
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(i);
-  return bucket[k] || null;
+  var found = null; 
+  bucket.search(k, function(value){
+    found = value;
+  });
+  return found;
 };
 
 HashTable.prototype.remove = function(k){
@@ -37,21 +41,43 @@ HashTable.prototype.remove = function(k){
 
 HashTable.prototype.new_bucket = function(){
   var bucket = Object.create(HashTable.bucket);
-  bucket.length = 0;
+  bucket._storage = [];
   return bucket;
 }
 
+//What if we didn't have the javascript object?
+/*
+
+  bucket =[[key, value]]
+
+*/
 HashTable.bucket = {};
+HashTable.bucket.search = function(k, callback){
+  var found = false;
+  this._storage.forEach(function(array, index, _storage){
+    if(array[0] === k){
+      if(callback){
+        callback(array[1], index, _storage);
+      }
+      found = true;
+    }
+  })
+  return found;
+}
 HashTable.bucket.add = function(k,v){
-    this[k] = v;
-    this.length++;
+    var found = this.search(k, function(oldval, i, _storage){
+      _storage[i][1] = v;
+    });
+    if(!found){
+      this._storage.push([k,v]);
+      this.length++;
+    }
 }
 
 HashTable.bucket.remove = function(k){
-    if(this[k]){
-      delete this[k];
-      this.length--;
-    }
+    var found = this.search(k, function(a,i,_storage){
+      _storage.splice(i,1);
+    });
 };
 
 
