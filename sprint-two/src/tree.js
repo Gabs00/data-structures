@@ -1,5 +1,4 @@
 
-
  var makeTree = function(value){
   var newTree = {};
 
@@ -17,42 +16,41 @@ var treeMethods = {};
 treeMethods.addChild = function(value){
 
     child = makeTree(value);
-    var list = makeLinkedList();
-
-    list.addToTail(child);
-    list.value = child.value;
-
-    this.children.push(list);
+    this.children.push(child);
 }
 
 treeMethods.contains = function(target){
-  //check if the current tree value = target
-  var rootNode = this;
-  
-  return search(rootNode);
-  
-  function search(node){
-     //if yes, return true;
-      if ( node.value === target ){
+    //if yes, return true;
+    if ( this.value === target ){
          return true; 
-      }else if ( node.children.length === 0 ){
-         //if no, check if the current tree has children 
-         //if it doesn't have children, return false
-         return false;
-      }else{
-          //if it does, iterate over the children array
-          for ( var i = 0; i < node.children.length; i++) {
-              search(node.children[i].head.value);
-          }
+    }
+    else if ( this.children.length > 0){
+        //if it does, iterate over the children array
+        for( var i = 0; i < this.children.length; i++) {
+            if(this.children[i].contains(target)){
+                return true;
+            }
+        }
           
-      }
-
-      return false;
-  }
-  
+    }
+    return false;  
 };
 
+//n 
+//...
+    //1 ...
+        //1 ...
+        // .....
+            //...
+    //2..t
+    
+    //3
+
+    //21 nodes
+// array[0 .. 21]
 
 /*
  * Complexity: What is the time complexity of the above functions?
+  contain =  O(n)
+
  */
