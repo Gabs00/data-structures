@@ -8,13 +8,7 @@ var makeQueue = function() {
   return storage;
 };
 
-makeQueue.queueMethods = {};
-
-makeQueue.queueMethods.enqueue = function(value){
-  //Adds an item to the queue
-  this[this.length] = value;
-  this.length++;
-};
+var queueMethods = {};
 
 queueMethods.enqueue = function(value){
   //Adds an item to the queue
