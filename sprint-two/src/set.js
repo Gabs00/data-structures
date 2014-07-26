@@ -1,6 +1,6 @@
 var makeSet = function(){
   var set = Object.create(setPrototype);
-  set._storage = {};
+  set._storage = new HashTable();
   return set;
 };
 
@@ -13,17 +13,20 @@ var setPrototype = {};
 setPrototype.add = function(item){
   //add a string to the set
   //does not add duplicates
-  this._storage[item] = true;
+  this._storage.insert(item, typeof item);
 };
 
 setPrototype.contains = function(item){
   //check if a string is in the set, returns boolean
-  return this._storage[item] || false;
+  if(this._storage.retrieve(item)){
+    return true;
+  }
+  return false;
 };
 
 setPrototype.remove = function(item){
   //move an item from the set
-  delete this._storage[item];
+  this._storage.remove(item);
 };
 
 /*

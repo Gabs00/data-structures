@@ -9,7 +9,7 @@ var HashTable = function(){
   this._limit = 8;
   this._storage = makeLimitedArray(this._limit);
 };
-
+HashTable.prototype = {};
 HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(i);
