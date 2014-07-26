@@ -7,11 +7,10 @@ Node.prototype.addSiblings = function(sibling){
   }
 }
 Node.prototype.removeSibling = function(sibling){
-  var found = false;
-  this.search(sibling, function(v, i, c){
-    c.splice(i, 1);
-    found = true;
-  });
+  var found = this.search(sibling, function(v, i, c){
+                c.splice(i, 1);
+              });
+
   if(found){
     sibling.removeSibling(this);
   }

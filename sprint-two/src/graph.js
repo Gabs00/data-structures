@@ -117,16 +117,15 @@ Graph.node.addSiblings = function(sibling){
   }
 }
 Graph.node.removeSibling = function(sibling){
-  var found = false;
-  this.search(sibling, function(v, i, c){
-    c.splice(i, 1);
-    found = true;
-  });
+  var found = this.search(sibling, function(v, i, c){
+                c.splice(i, 1);
+              });
+
   if(found){
     sibling.removeSibling(this);
   }
-
 }
+
 Graph.node.search = function(target, callback){
   var found = false;
   this.siblings.forEach(function(v,i,c){
