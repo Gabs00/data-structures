@@ -25,3 +25,27 @@ Queue.prototype.size = function(){
   return this.length;
 }
 
+Queue.prototype.enqueue = function(value){
+  this.storage[this.length] = value;
+  this.length++;
+};
+Queue.prototype.dequeue = function(){
+  if(this.length <= 0){
+    return undefined;
+  }
+
+  var item = this.storage[0];
+
+  this.length--;
+
+  for(var i = 0; i < this.length; i++){
+    this.storage[i] = this.storage[i+1];
+  }
+
+  delete this.storage[this.length];
+
+  return item;
+};
+Queue.prototype.size = function(){
+  return this.length;
+}
