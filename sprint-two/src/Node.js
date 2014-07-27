@@ -15,8 +15,11 @@ Functions of a node?
   it is expected to know its value  
 */
 function Node(value, twoWay, key){
+  if(value === undefined){
+    value = null;
+  }
   if(key){
-    this.key = key
+    this.key = key;
   }
   else {
     this.key = value;
@@ -55,15 +58,32 @@ Node.prototype.removeNodes = function(node){
   }
 
 }
+Node.prototype.getNodeAt = function(index){
+  if(index >= 0 && index < this.nodes.length){
+    return this.nodes[index];
+  }
+}
+Node.prototype.nodeCount = function(){
+  return this.nodes.length;
+}
+Node.prototype.traverse = function(callback){
+  this.nodes.forEach(function(v,i,c){
+    callback(v,i,c);
+  })
+}
+Node.prototype.compare = function(target){
+  return this.key === target;
+}
+//callback is optional
 Node.prototype.search = function(target, callback){
   var found = false;
-  this.nodes.forEach(function(v,i,c){
+  this.traverse(function(v,i,c){
     if(v.key === target.key){
       found = true;
       if(typeof callback === 'function'){
         callback(v,i,c);
       }
     }
-  });
+  })
   return found;
 }
