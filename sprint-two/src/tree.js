@@ -1,40 +1,34 @@
-
- var makeTree = function(value){
-  var newTree = {};
-
-  for(var p in treeMethods){
-    newTree[p] = treeMethods[p];
-  }
-
-  newTree.value = value;
-  newTree.children = [];
-
-  return newTree;
+//A tree is a grouping of nodes where there are tree nodes and branch nodes
+//branch nodes are also tree nodes
+//there is a root tree
+var makeTree = function(value){
+  var tree = new Node(value);
+  tree.children = tree.nodes;
+  tree.contains = treeMethods.contains;
+  tree.addChild = treeMethods.addChild;
+  return tree;
 };
 
 var treeMethods = {};
 treeMethods.addChild = function(value){
-
-    child = makeTree(value);
-    this.children.push(child);
+  var branch = makeTree(value);
+  this.addNodes(branch);
+}
+treeMethods.contains = function(value){
+  var found = false;
+  if(this.key === value){
+    return true;
+  }
+  else{
+    this.traverse(function(v,i,c){
+      if(v.contains(value)){
+        found = true;
+      }
+    })
+  }
+  return found;
 }
 
-treeMethods.contains = function(target){
-    //if yes, return true;
-    if ( this.value === target ){
-         return true; 
-    }
-    else if ( this.children.length > 0){
-        //if it does, iterate over the children array
-        for( var i = 0; i < this.children.length; i++) {
-            if(this.children[i].contains(target)){
-                return true;
-            }
-        }
-          
-    }
-    return false;  
-};
 
 //n 
 //...
