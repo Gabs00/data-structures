@@ -23,12 +23,6 @@ Graph.prototype.addNode = function(newNode, toNode){
   if(toNode){
     this.addEdge(node, toNode);
   }
-  //get toNode
-  //create 2 new edges
-
-  // connect edges tails together, 
-  //set edge 1 head on newNode
-  //set edge 2 head on toNode
 };
 
 Graph.prototype.contains = function(node){
@@ -93,7 +87,6 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
 };
 Graph.prototype.cleanUp = function(nodes){
   for(var i = 0; i < nodes.length; i++){
-    console.log(nodes[i], nodes[i].siblings.length);
     if(nodes[i].siblings.length <= 0){
 
       this.removeNode(nodes[i]);
